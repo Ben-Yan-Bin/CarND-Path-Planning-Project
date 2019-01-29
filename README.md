@@ -1,3 +1,15 @@
+# Model description 
+## Overview
+
+The project is to navigate the ego car to drive around a highway with other traffic at a required speed.   
+It is required for the car to complete 4.32 miles without incident. Incidents include exceeding acceleration/jerk/speed, collision, and driving outside of the lanes.  
+The model will receive inputs as below:
+1. The highway waypoints in the highway_map.csv file, which are point spaced roughly 30 apart between each other
+2. The ego car telemetry information which can be used as localization
+3. Previous path data which can be used to smooth the path
+4. Sensor fusion data of other cars with the positions, speed
+
+# 
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
    
