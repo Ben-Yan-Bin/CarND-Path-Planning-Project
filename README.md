@@ -9,6 +9,12 @@ The model will receive inputs as below:
 3. Previous path data which can be used to smooth the path
 4. Sensor fusion data of other cars with the positions, speed
 
+Corresponding steps include:
+1. Interpolating waypoints of the track based on highway waypoints
+2. Create Vehicle object with status and parameters
+3. Make predictions from sensor fusion data of other traffic
+4. Identify best trajectory
+
 # 
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
