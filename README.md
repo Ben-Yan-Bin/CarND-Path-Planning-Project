@@ -65,6 +65,25 @@ for (auto sf: sensor_fusion) {
 
 ## Identify best trajectory
 
+1. calculate the possible states of ego vehicle
+```c++
+my_car.update_available_states(car_to_left, car_to_right);
+```
+2. Get target state annd generate all possible trajectory (functions are defined in Vehicle class)
+```c++
+vector<vector<double>> target_s_and_d = my_car.get_target_for_state(state, predictions, duration, car_just_ahead);
+vector<vector<double>> possible_traj = my_car.generate_traj_for_target(target_s_and_d, duration);
+```
+3. Calculate cost of trajectery and find the best trajectery
+```c++
+double current_cost = calculate_total_cost(possible_traj[0], possible_traj[1], predictions);                 
+if (current_cost < best_cost) {
+    best_cost = current_cost;
+    best_frenet_traj = possible_traj;
+    best_traj_state = state;
+    best_target = target_s_and_d;
+}
+```
 
 
 # 
