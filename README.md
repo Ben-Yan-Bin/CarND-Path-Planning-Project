@@ -14,6 +14,38 @@ Corresponding steps include:
 2. Create Vehicle object with status and parameters
 3. Make predictions from sensor fusion data of other traffic
 4. Identify best trajectory
+5. Define the new path
+
+## Interpolating waypoints
+
+The interpolating waypoint with s is simply done by:
+```c++
+interpolated_waypoints_s.push_back(coarse_waypoints_s[0]);
+for (int i = 1; i < num_interpolation_points; i++) {
+   interpolated_waypoints_s.push_back(coarse_waypoints_s[0] + i * dist_inc);
+}
+interpolated_waypoints_x = interpolate_points(coarse_waypoints_s, coarse_waypoints_x, dist_inc, num_interpolation_points);
+interpolated_waypoints_y = interpolate_points(coarse_waypoints_s, coarse_waypoints_y, dist_inc, num_interpolation_points);
+interpolated_waypoints_dx = interpolate_points(coarse_waypoints_s, coarse_waypoints_dx, dist_inc, num_interpolation_points);
+interpolated_waypoints_dy = interpolate_points(coarse_waypoints_s, coarse_waypoints_dy, dist_inc, num_interpolation_points);
+```
+And the coordinates transfer is done by function interpolate_points in smoother.h
+
+## Create Vehicle object
+
+The Vehicle object is initiated:
+```c++
+Vehicle my_car = Vehicle();
+```
+And parameters are set by:
+```c++
+my_car.s    = pos_s;           // s position
+my_car.s_d  = s_dot;           // s dot - velocity in s
+my_car.s_dd = s_ddot;          // s dot-dot - acceleration in s
+my_car.d    = pos_d;           // d position
+my_car.d_d  = d_dot;           // d dot - velocity in d
+my_car.d_dd = d_ddot;          // d dot-dot - acceleration in d
+```
 
 # 
 # CarND-Path-Planning-Project
