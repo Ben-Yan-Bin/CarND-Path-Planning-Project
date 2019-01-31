@@ -33,7 +33,7 @@ And the coordinates transfer is done by function interpolate_points in smoother.
 
 ## Create Vehicle object
 
-The Vehicle object is initiated:
+The Vehicle (defined in vehicle.cpp and vehicle.h) object is initiated:
 ```c++
 Vehicle my_car = Vehicle();
 ```
@@ -46,6 +46,26 @@ my_car.d    = pos_d;           // d position
 my_car.d_d  = d_dot;           // d dot - velocity in d
 my_car.d_dd = d_ddot;          // d dot-dot - acceleration in d
 ```
+
+## Make predictions from sensor fusion data
+
+Other cars data are imported into Vehicle objects as well, and also the sensor fusion data; the prediction is done by generate_predictions function in Vehicle class:
+```c++
+vector<Vehicle> other_cars;
+map<int, vector<vector<double>>> predictions;
+for (auto sf: sensor_fusion) {
+   double other_car_vel = sqrt(pow((double)sf[3], 2) + pow((double)sf[4], 2));
+   Vehicle other_car = Vehicle(sf[5], other_car_vel, 0, sf[6], 0, 0);
+   other_cars.push_back(other_car);
+   int v_id = sf[0];
+   vector<vector<double>> preds = other_car.generate_predictions(traj_start_time, duration);
+   predictions[v_id] = preds;
+}
+```
+
+## Identify best trajectory
+
+
 
 # 
 # CarND-Path-Planning-Project
