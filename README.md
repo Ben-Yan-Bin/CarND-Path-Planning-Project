@@ -85,8 +85,11 @@ if (current_cost < best_cost) {
 }
 ```
 
+## Get the new path
 
-# 
+Use 5 waypoints of the previous two waypoint of the car from simulator, current position of the car, and two waypoints from 30 m and 60 m ahead in the target lane to get a smooth spline path that the car will drive. And to avoid excessive acceleration or jerk, the velocity is controlled by small amount of increment and decrement.
+
+
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
    
